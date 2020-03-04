@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import ChangePost from './pages/ChangePost';
 import CreatePost from './pages/CreatePost';
 import NoMatch from './pages/NoMatch';
+import Preloader from './components/Preloader';
 
 export const StoreContext = createContext({});
 
@@ -18,27 +19,23 @@ const App = () => {
   const [store, setStore] = useState({});
 
   useEffect(() => {
-    getUsersData()
-    .then((response) => setStore({
-      ...store,
-      usersData: response.data
-    }));
-  
-  getAllPosts()
-    .then((response) => setStore({
-      ...store,
-      posts: response.data
-    }));
-  }, [getUsersData, getAllPosts])
+    Promise.all([getUsersData(), getAllPosts()]).then((response) => {
+      setStore({
+        ...store,
+        users: response[0].data,
+        posts: response[1].data,
+      });
+    })
+  }, []);
 
   return (
-    <div className="App">
+    <div className="app">
       <StoreContext.Provider value={store}>
-        <main>
+        <main className="app__main">
           <Router>
             <Switch>
               <Route path="/" exact component={Home}/>
-              <Route path="/change" component={ChangePost}/>
+              <Route path="/change_:id" component={ChangePost}/>
               <Route path="/create" component={CreatePost}/>
               <Route path="*" component={NoMatch}/>
             </Switch>

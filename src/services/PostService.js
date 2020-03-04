@@ -17,7 +17,7 @@ export default {
       "Content-type": "application/json; charset=UTF-8"
     });
   },
-  changePost(title, body, postId, userId) {
+  changePost(postId, title, body, userId) {
     const url = `https://jsonplaceholder.typicode.com/posts/${postId}`;
     return request(url, 'PUT', {
       body: JSON.stringify({
