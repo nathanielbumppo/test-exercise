@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import Api from "./services/Api";
 import { 
   BrowserRouter as Router,
@@ -11,27 +11,40 @@ import ChangePost from './pages/ChangePost';
 import CreatePost from './pages/CreatePost';
 import NoMatch from './pages/NoMatch';
 
+export const StoreContext = createContext({});
+
 const App = () => {
   const { getUsersData, getAllPosts } = Api;
-  
-  getUsersData()
-    .then((item) => console.log(item.data))
+  const [store, setStore] = useState({});
+
+  useEffect(() => {
+    getUsersData()
+    .then((response) => setStore({
+      ...store,
+      usersData: response.data
+    }));
   
   getAllPosts()
-    .then((item) => console.log(item.data))
+    .then((response) => setStore({
+      ...store,
+      posts: response.data
+    }));
+  }, [getUsersData, getAllPosts])
 
   return (
     <div className="App">
-      <main>
-        <Router>
-          <Switch>
-            <Route path="/" exact component={Home}/>
-            <Route path="/change" component={ChangePost}/>
-            <Route path="/create" component={CreatePost}/>
-            <Route path="*" component={NoMatch}/>
-          </Switch>
-        </Router>
-      </main>
+      <StoreContext.Provider value={store}>
+        <main>
+          <Router>
+            <Switch>
+              <Route path="/" exact component={Home}/>
+              <Route path="/change" component={ChangePost}/>
+              <Route path="/create" component={CreatePost}/>
+              <Route path="*" component={NoMatch}/>
+            </Switch>
+          </Router>
+        </main>
+      </StoreContext.Provider>
     </div>
   );
 }
