@@ -10,7 +10,6 @@ import Home from './pages/Home';
 import ChangePost from './pages/ChangePost';
 import CreatePost from './pages/CreatePost';
 import NoMatch from './pages/NoMatch';
-import Preloader from './components/Preloader';
 
 export const StoreContext = createContext({});
 
@@ -26,6 +25,7 @@ const App = () => {
         posts: response[1].data,
       });
     })
+    //eslint-disable-next-line
   }, []);
 
   return (

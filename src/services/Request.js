@@ -9,7 +9,7 @@ import axios from 'axios';
  * @param args
  */
 
-export const request = async (url, method, data, ...args) => {
+export const request = async (url, method, data, headers, ...args) => {
   let fileData;
 
   if (data instanceof FormData) {
@@ -20,6 +20,7 @@ export const request = async (url, method, data, ...args) => {
     method: method || 'GET',
     url,
     data,
+    headers,
     ...args,
   };
 

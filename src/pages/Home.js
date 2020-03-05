@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className="home">
       {
-        store.users && store.posts ? <PostTable store={store}/> : <Preloader />
+        store.users && store.posts ? <PostTable store={store}/> : <Preloader size={200}/>
       }
     </div>
   )

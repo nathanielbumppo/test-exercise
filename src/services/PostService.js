@@ -1,12 +1,13 @@
 import { request } from './Request';
+import { config } from '../Constats';
 
 export default {
   getAllPosts() {
-    const url = `https://jsonplaceholder.typicode.com/posts`;
+    const url = config.url.API_URL_POSTS;
     return request(url);
   },
   addNewPost(title, body, userId) {
-    const url = `https://jsonplaceholder.typicode.com/posts`;
+    const url = config.url.API_URL_POSTS;
     return request(url, 'POST', {
       body: JSON.stringify({
         title,
@@ -18,7 +19,7 @@ export default {
     });
   },
   changePost(postId, title, body, userId) {
-    const url = `https://jsonplaceholder.typicode.com/posts/${postId}`;
+    const url = `${config.url.API_URL_POSTS}/${postId}`;
     return request(url, 'PUT', {
       body: JSON.stringify({
         id: postId,
@@ -31,7 +32,7 @@ export default {
     })
   },
   deletePost(postId) {
-    const url = `https://jsonplaceholder.typicode.com/posts/${postId}`;
+    const url = `${config.url.API_URL_POSTS}/${postId}`;
     return request(url, 'DELETE');
   }
 };

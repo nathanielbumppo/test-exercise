@@ -6,7 +6,7 @@ import { Pane, Button } from 'evergreen-ui';
 import ChangePostForm from '../components/ChangePostForm';
 import Preloader from '../components/Preloader';
 
-const ChangePost = () => {
+const ChangePost = ({history}) => {
   const store = useContext(StoreContext);
   let { id } = useParams();
 
@@ -18,7 +18,7 @@ const ChangePost = () => {
         </Link>
       </Pane>
       {
-        store.users && store.posts ? <ChangePostForm id={id} store={store}/> : <Preloader/>
+        store.users && store.posts ? <ChangePostForm id={id} store={store} history={history}/> : <Preloader size={200}/>
       }
     </div>
   )
