@@ -14,6 +14,7 @@ const UserAvatar = ({name}) => {
       setUserAvatar(url);
       setShowPreloader(false);
     });
+    //eslint-disable-next-line
   }, [])
 
 
